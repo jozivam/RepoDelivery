@@ -1,43 +1,49 @@
-# Publicar no GitHub usando apenas navegador (sem Linux local)
+# Instruções para GitHub Web (GitWeb) — sem terminal
 
 Data: 2026-03-24
 
 ## Situação real deste ambiente
 
-Na sessão atual do Codex, a tentativa de `git push` para `https://github.com/jozivam/RepoDelivery.git` falhou com:
+Na sessão atual do Codex, `git push` para `https://github.com/jozivam/RepoDelivery.git` falha com:
 
 `CONNECT tunnel failed, response 403`
 
-Isso significa bloqueio de rede/proxy do ambiente da sessão, não erro do seu projeto.
+Então a publicação precisa ser feita via interface web do GitHub.
 
-## Como publicar sem usar terminal local
+## Passo a passo no GitHub Web (GitWeb)
 
-### Opção A (mais rápida): Upload direto pelo site do GitHub
+### 1) Abrir o repositório no navegador
 
-1. Abra `https://github.com/jozivam/RepoDelivery`.
-2. Clique em **Add file** > **Upload files**.
-3. Envie estes arquivos/pastas deste projeto:
+Acesse: `https://github.com/jozivam/RepoDelivery`
+
+### 2) Subir os arquivos pelo botão Upload
+
+1. Clique em **Add file**.
+2. Clique em **Upload files**.
+3. Arraste/seleciona os arquivos:
    - `app/main.py`
    - `tests/test_api.py`
    - `requirements.txt`
    - `README.md`
    - `scripts/publicar_github.sh`
-4. Commit no próprio GitHub com mensagem: `feat: mvp inicial api`.
+4. Em mensagem de commit, use: `feat: mvp inicial api`.
+5. Clique em **Commit changes**.
 
-### Opção B: Criar arquivos manualmente no GitHub
+### 3) Alternativa: criar arquivo por arquivo
 
 1. **Add file** > **Create new file**.
-2. Crie os mesmos caminhos acima e cole o conteúdo.
-3. Commit direto na branch principal.
+2. Crie o caminho completo (ex.: `app/main.py`).
+3. Cole conteúdo.
+4. **Commit changes**.
+5. Repita para os demais arquivos.
 
-## O que já está pronto para publicar
+## Conferência final no GitHub Web
 
-- API FastAPI mínima (`app/main.py`)
-- testes (`tests/test_api.py`)
-- dependências (`requirements.txt`)
-- documentação (`README.md`)
+Após publicar, verifique se aparecem:
 
-## Resumo
+- pasta `app/` com `main.py`
+- pasta `tests/` com `test_api.py`
+- `requirements.txt`
+- `README.md`
 
-Você não está errado: com bloqueio 403 neste ambiente, eu não consigo empurrar para seu GitHub daqui.
-Mas o projeto está pronto e pode ser publicado 100% via interface web do GitHub, sem Linux local.
+Se quiser, na próxima mensagem eu te mando o conteúdo de cada arquivo em blocos prontos para copiar/colar direto no GitHub Web.

@@ -1,15 +1,17 @@
 # RepoDelivery
 
-MVP de API já implementado neste workspace:
+Você está usando Codex no navegador e pediu fluxo **sem terminal**.
 
-- `app/main.py` (`/health`, `/tasks` GET/POST, `/tasks/{task_id}` PATCH)
+## Entrega já pronta neste workspace
+
+- `app/main.py`
 - `tests/test_api.py`
 - `requirements.txt`
+- `scripts/publicar_github.sh`
 
-## Instrução para GitHub Web (GitWeb)
+## Publicar sem terminal
 
-Use o guia completo:
+Use somente interface web do GitHub (cliques), seguindo:
 
 - `GUIA_PUBLICACAO_NAVEGADOR.md`
-
-Ele mostra o passo a passo no GitHub Web (**Add file → Upload files / Create new file**) para publicar sem terminal.
+- `PUBLICAR_SEM_TERMINAL.md`

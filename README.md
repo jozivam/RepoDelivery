@@ -1,54 +1,48 @@
 # RepoDelivery
 
-Você está certo em cobrar entrega. Então já deixei um **MVP funcional** no repositório.
+Você pediu entrega real de projeto — então este repositório **já tem código** de um MVP de API.
 
-## O que foi entregue
+## O que já foi criado
 
-- API FastAPI com endpoints:
+- `app/main.py`: API FastAPI com endpoints
   - `GET /health`
   - `GET /tasks`
   - `POST /tasks`
   - `PATCH /tasks/{task_id}`
-- Testes automatizados com `pytest`.
+- `tests/test_api.py`: testes do fluxo principal
+- `requirements.txt`: dependências
 
-## Como rodar localmente (no seu PC)
+## Importante: por que seu GitHub ainda pode estar vazio
 
-1. Clone o repositório no seu computador:
+Eu consigo criar/commitar código aqui na sessão, mas **não consigo publicar no seu GitHub sem `origin` + autenticação da sua conta**.
+
+Para aparecer no seu GitHub, rode estes comandos neste repositório:
 
 ```bash
-git clone https://github.com/<seu-usuario>/RepoDelivery.git
-cd RepoDelivery
+git remote add origin https://github.com/<seu-usuario>/RepoDelivery.git
+git push -u origin work
 ```
 
-2. Crie e ative ambiente virtual:
+Se sua branch padrão for `main`:
+
+```bash
+git branch -M main
+git push -u origin main
+```
+
+## Rodar localmente no Linux
+
+Depois que estiver no GitHub (ou se você já tiver os arquivos locais):
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-```
-
-3. Instale dependências:
-
-```bash
 pip install -r requirements.txt
-```
-
-4. Rode a API:
-
-```bash
 uvicorn app.main:app --reload
 ```
 
-5. Abra a documentação interativa:
-
-- http://127.0.0.1:8000/docs
-
-## Rodar testes
+## Testes
 
 ```bash
 pytest -q
 ```
-
-## Próximo passo
-
-Se você colar aqui novamente o PDR/API/plano detalhado, eu evoluo esse MVP para o escopo exato que você definiu.

@@ -1,0 +1,344 @@
+openapi: 3.1.0
+info:
+  title: API v1 - Matriz/Filiais
+  version: 0.1.0
+  description: Especificação inicial da API.
+servers:
+  - url: /api/v1
+paths:
+  /auth/login:
+    post:
+      tags: [auth]
+      summary: Autentica usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string, format: email }
+                password: { type: string, minLength: 6 }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /auth/logout:
+    post:
+      tags: [auth]
+      summary: Encerra sessão
+      responses:
+        '200':
+          description: OK
+  /auth/me:
+    get:
+      tags: [auth]
+      summary: Retorna dados do usuário autenticado
+      responses:
+        '200':
+          description: OK
+  /companies:
+    get:
+      tags: [companies]
+      summary: Lista matrizes
+      responses:
+        '200': { description: OK }
+    post:
+      tags: [companies]
+      summary: Cria empresa matriz (apenas DEV)
+      responses:
+        '201': { description: Created }
+  /companies/{companyId}:
+    get:
+      tags: [companies]
+      summary: Detalhes da matriz
+      parameters:
+        - $ref: '#/components/parameters/companyId'
+      responses:
+        '200': { description: OK }
+    patch:
+      tags: [companies]
+      summary: Atualiza matriz
+      parameters:
+        - $ref: '#/components/parameters/companyId'
+      responses:
+        '200': { description: OK }
+  /companies/{companyId}/branches:
+    get:
+      tags: [branches]
+      summary: Lista filiais da matriz
+      parameters:
+        - $ref: '#/components/parameters/companyId'
+      responses:
+        '200': { description: OK }
+    post:
+      tags: [branches]
+      summary: Cria filial
+      parameters:
+        - $ref: '#/components/parameters/companyId'
+      responses:
+        '201': { description: Created }
+  /branches/{branchId}:
+    get:
+      tags: [branches]
+      summary: Detalhes da filial
+      parameters:
+        - $ref: '#/components/parameters/branchId'
+      responses:
+        '200': { description: OK }
+    patch:
+      tags: [branches]
+      summary: Atualiza filial
+      parameters:
+        - $ref: '#/components/parameters/branchId'
+      responses:
+        '200': { description: OK }
+  /branches/switch-context/{branchId}:
+    get:
+      tags: [branches]
+      summary: Troca contexto da loja no painel da matriz
+      parameters:
+        - $ref: '#/components/parameters/branchId'
+      responses:
+        '200': { description: OK }
+  /public/stores/{slug}:
+    get:
+      tags: [public-store]
+      summary: Retorna dados públicos da loja
+      parameters:
+        - $ref: '#/components/parameters/slug'
+      responses:
+        '200': { description: OK }
+  /public/stores/{slug}/products:
+    get:
+      tags: [public-store]
+      summary: Lista produtos visíveis da loja
+      parameters:
+        - $ref: '#/components/parameters/slug'
+      responses:
+        '200': { description: OK }
+  /public/stores/{slug}/categories:
+    get:
+      tags: [public-store]
+      summary: Lista categorias da loja
+      parameters:
+        - $ref: '#/components/parameters/slug'
+      responses:
+        '200': { description: OK }
+  /products/base:
+    get:
+      tags: [products-base]
+      summary: Lista produtos base
+      responses:
+        '200': { description: OK }
+    post:
+      tags: [products-base]
+      summary: Cria produto base
+      responses:
+        '201': { description: Created }
+  /products/base/{productId}:
+    patch:
+      tags: [products-base]
+      summary: Atualiza produto base
+      parameters:
+        - $ref: '#/components/parameters/productId'
+      responses:
+        '200': { description: OK }
+    delete:
+      tags: [products-base]
+      summary: Desativa produto base
+      parameters:
+        - $ref: '#/components/parameters/productId'
+      responses:
+        '200': { description: OK }
+  /branches/{branchId}/store-products:
+    get:
+      tags: [store-products]
+      summary: Lista produtos da loja
+      parameters:
+        - $ref: '#/components/parameters/branchId'
+      responses:
+        '200': { description: OK }
+    post:
+      tags: [store-products]
+      summary: Cria produto operacional da loja
+      parameters:
+        - $ref: '#/components/parameters/branchId'
+      responses:
+        '201': { description: Created }
+  /store-products/{storeProductId}:
+    patch:
+      tags: [store-products]
+      summary: Atualiza produto da loja
+      parameters:
+        - $ref: '#/components/parameters/storeProductId'
+      responses:
+        '200': { description: OK }
+    delete:
+      tags: [store-products]
+      summary: Desativa produto da loja
+      parameters:
+        - $ref: '#/components/parameters/storeProductId'
+      responses:
+        '200': { description: OK }
+  /branches/{branchId}/stock:
+    get:
+      tags: [stock]
+      summary: Lista estoque da loja
+      parameters:
+        - $ref: '#/components/parameters/branchId'
+      responses:
+        '200': { description: OK }
+  /stock/entry:
+    post:
+      tags: [stock]
+      summary: Registra entrada de estoque
+      responses:
+        '201': { description: Created }
+  /stock/adjustment:
+    post:
+      tags: [stock]
+      summary: Registra ajuste manual
+      responses:
+        '201': { description: Created }
+  /stock/movements:
+    get:
+      tags: [stock]
+      summary: Lista movimentações
+      responses:
+        '200': { description: OK }
+  /public/orders:
+    post:
+      tags: [orders]
+      summary: Cria pedido na loja pública
+      responses:
+        '201': { description: Created }
+  /orders:
+    get:
+      tags: [orders]
+      summary: Lista pedidos
+      responses:
+        '200': { description: OK }
+  /orders/{orderId}:
+    get:
+      tags: [orders]
+      summary: Detalhes do pedido
+      parameters:
+        - $ref: '#/components/parameters/orderId'
+      responses:
+        '200': { description: OK }
+  /orders/{orderId}/status:
+    patch:
+      tags: [orders]
+      summary: Atualiza status do pedido
+      parameters:
+        - $ref: '#/components/parameters/orderId'
+      responses:
+        '200': { description: OK }
+  /public/orders/{orderId}/tracking:
+    get:
+      tags: [orders]
+      summary: Retorna rastreio público
+      parameters:
+        - $ref: '#/components/parameters/orderId'
+      responses:
+        '200': { description: OK }
+  /deliveries/assign:
+    post:
+      tags: [deliveries]
+      summary: Atribui pedido ao entregador
+      responses:
+        '201': { description: Created }
+  /deliveries/my:
+    get:
+      tags: [deliveries]
+      summary: Lista entregas do entregador
+      responses:
+        '200': { description: OK }
+  /deliveries/{deliveryId}/status:
+    patch:
+      tags: [deliveries]
+      summary: Atualiza status da entrega
+      parameters:
+        - $ref: '#/components/parameters/deliveryId'
+      responses:
+        '200': { description: OK }
+  /reports/sales-summary:
+    get:
+      tags: [reports]
+      summary: Resumo de vendas
+      responses:
+        '200': { description: OK }
+  /reports/top-products:
+    get:
+      tags: [reports]
+      summary: Produtos mais vendidos
+      responses:
+        '200': { description: OK }
+  /reports/low-stock:
+    get:
+      tags: [reports]
+      summary: Produtos com estoque baixo
+      responses:
+        '200': { description: OK }
+  /branches/{branchId}/settings:
+    get:
+      tags: [settings]
+      summary: Busca configurações da loja
+      parameters:
+        - $ref: '#/components/parameters/branchId'
+      responses:
+        '200': { description: OK }
+    patch:
+      tags: [settings]
+      summary: Atualiza configurações da loja
+      parameters:
+        - $ref: '#/components/parameters/branchId'
+      responses:
+        '200': { description: OK }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    companyId: { name: companyId, in: path, required: true, schema: { type: string, format: uuid } }
+    branchId: { name: branchId, in: path, required: true, schema: { type: string, format: uuid } }
+    productId: { name: productId, in: path, required: true, schema: { type: string, format: uuid } }
+    storeProductId: { name: storeProductId, in: path, required: true, schema: { type: string, format: uuid } }
+    orderId: { name: orderId, in: path, required: true, schema: { type: string, format: uuid } }
+    deliveryId: { name: deliveryId, in: path, required: true, schema: { type: string, format: uuid } }
+    slug: { name: slug, in: path, required: true, schema: { type: string } }
+  schemas:
+    SuccessResponse:
+      type: object
+      required: [success, data]
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          type: object
+          additionalProperties: true
+    ErrorResponse:
+      type: object
+      required: [success, error]
+      properties:
+        success:
+          type: boolean
+          const: false
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+security:
+  - bearerAuth: []

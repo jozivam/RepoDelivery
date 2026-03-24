@@ -1,62 +1,70 @@
-# Onde foi parar o projeto?
+# Onde foi parar o projeto? (Codex no navegador)
 
 Data da verificação: 2026-03-24 (UTC)
 
 ## Resposta direta
 
-Neste repositório **não existe código de sistema salvo** até agora.
+Você está usando o **Codex no navegador**. Nesse modo, o código é criado no **workspace da sessão do Codex** (ambiente remoto), não automaticamente no seu Linux local.
+
+Hoje, neste workspace vinculado ao `RepoDelivery`, **não existe código de sistema salvo** até agora.
 O histórico Git mostra apenas:
 
 - commit `b2fac08` com arquivo `.gitkeep`
-- commit `883b449` com este documento de diagnóstico
+- commits de documentação de diagnóstico
 
-Ou seja: o PDR/API/plano podem ter sido enviados no chat, mas **não viraram arquivos de código neste repositório**.
+Ou seja: o PDR/API/plano podem ter sido enviados no chat, mas **não viraram arquivos de código no repositório Git**.
 
-## Evidências objetivas
+## Diferença importante: navegador x Linux local
 
-1. `git log --name-status --oneline` mostra somente `.gitkeep` e `DIAGNOSTICO_REPODELIVERY.md`.
+- **Navegador/Codex**: onde os arquivos são gerados durante a sessão.
+- **Seu Linux local**: é outro ambiente, separado.
+- **GitHub**: só recebe arquivos quando há `git commit` + `git push` para um `remote` configurado.
+
+Então, mesmo usando Linux, se você acessa o Codex pelo browser, o fluxo correto continua sendo versionar e publicar via Git.
+
+## Evidências objetivas desta sessão
+
+1. `git log --name-status --oneline` mostra somente `.gitkeep` e arquivo(s) de diagnóstico.
 2. `git remote -v` não retorna nada (sem conexão com GitHub).
 3. Não há outras branches com código (`git branch -a` mostra só `work`).
 
 ## O que provavelmente aconteceu
 
-- As instruções ficaram apenas na conversa.
-- O agente anterior não gerou os arquivos do sistema (backend/frontend/API) dentro do repo.
-- Como não existe `origin`, nada poderia ser publicado no GitHub mesmo que houvesse código local.
+- As instruções ficaram na conversa (PDR/API/plano), mas não foram transformadas em arquivos de projeto.
+- O agente anterior não gerou backend/frontend/API no repo.
+- Sem `origin`, nada pode ser publicado no GitHub.
 
-## Como resolver agora (passo a passo prático)
+## Como resolver agora (sem confusão de ambiente)
 
-### 1) Publicar o que existe hoje (diagnóstico)
+### 1) Conectar este repositório da sessão ao seu GitHub
 
 ```bash
 git remote add origin https://github.com/<seu-usuario>/RepoDelivery.git
 git push -u origin work
 ```
 
-### 2) Criar de fato o projeto a partir do PDR/API/plano
+### 2) Me mandar o conteúdo do PDR/API/plano (ou arquivos)
 
-Você precisa me mandar **o conteúdo do PDR, contrato de API e plano** (ou os arquivos), e eu gero o código no repositório.
+Com isso, eu gero o sistema aqui no workspace do Codex, commito e publico no GitHub.
 
-Checklist mínimo para eu começar sem travar:
+Checklist mínimo para começar:
 
-- stack desejada (ex.: Node + Nest, Python + FastAPI, etc.)
+- stack (ex.: FastAPI, NestJS, Django, etc.)
 - banco de dados
-- entidades principais
+- entidades
 - endpoints obrigatórios
-- requisitos de autenticação
+- autenticação
 - prioridade do MVP
 
-### 3) Depois eu entrego pronto para GitHub
+### 3) Opcional: levar para seu Linux local depois
 
-Quando os arquivos forem criados, eu faço:
+No seu Linux:
 
 ```bash
-git add .
-git commit -m "feat: scaffold inicial do sistema"
-git push -u origin work
+git clone https://github.com/<seu-usuario>/RepoDelivery.git
 ```
 
-## Comandos de auditoria que você pode rodar agora
+## Comandos de auditoria
 
 ```bash
 git status --short --branch

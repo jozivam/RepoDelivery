@@ -12,27 +12,44 @@ Você pediu entrega real de projeto — então este repositório **já tem códi
 - `tests/test_api.py`: testes do fluxo principal
 - `requirements.txt`: dependências
 
-## Importante: por que seu GitHub ainda pode estar vazio
+## Publicar no GitHub (corrigindo erro de `origin` no seu PC)
 
-Eu consigo criar/commitar código aqui na sessão, mas **não consigo publicar no seu GitHub sem `origin` + autenticação da sua conta**.
+Se `git remote add origin ...` falhou, normalmente é porque `origin` já existe.
 
-Para aparecer no seu GitHub, rode estes comandos neste repositório:
+### Diagnóstico rápido
 
 ```bash
-git remote add origin https://github.com/<seu-usuario>/RepoDelivery.git
+git remote -v
+```
+
+### Opção 1 (recomendada): corrigir URL do origin existente
+
+```bash
+git remote set-url origin https://github.com/jozivam/RepoDelivery.git
 git push -u origin work
 ```
 
-Se sua branch padrão for `main`:
+### Opção 2: remover e adicionar de novo
 
 ```bash
-git branch -M main
-git push -u origin main
+git remote remove origin
+git remote add origin https://github.com/jozivam/RepoDelivery.git
+git push -u origin work
 ```
 
-## Rodar localmente no Linux
+### Opção 3: usar script pronto
 
-Depois que estiver no GitHub (ou se você já tiver os arquivos locais):
+```bash
+./scripts/publicar_github.sh jozivam work
+```
+
+## Erros comuns no push
+
+- `Repository not found`: URL errada ou repo não criado na conta.
+- `Authentication failed`: precisa autenticar com token/credential manager.
+- `src refspec work does not match any`: sua branch local tem outro nome (use `git branch`).
+
+## Rodar localmente no Linux
 
 ```bash
 python3 -m venv .venv

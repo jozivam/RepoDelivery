@@ -1,65 +1,24 @@
 # RepoDelivery
 
-Você pediu entrega real de projeto — então este repositório **já tem código** de um MVP de API.
+MVP de API já implementado neste workspace:
 
-## O que já foi criado
+- `app/main.py` (`/health`, `/tasks` GET/POST, `/tasks/{task_id}` PATCH)
+- `tests/test_api.py`
+- `requirements.txt`
 
-- `app/main.py`: API FastAPI com endpoints
-  - `GET /health`
-  - `GET /tasks`
-  - `POST /tasks`
-  - `PATCH /tasks/{task_id}`
-- `tests/test_api.py`: testes do fluxo principal
-- `requirements.txt`: dependências
+## Publicação no GitHub quando usar apenas navegador
 
-## Publicar no GitHub (corrigindo erro de `origin` no seu PC)
+Se você usa só navegador, siga o guia:
 
-Se `git remote add origin ...` falhou, normalmente é porque `origin` já existe.
+- `GUIA_PUBLICACAO_NAVEGADOR.md`
 
-### Diagnóstico rápido
+Esse guia explica o erro `CONNECT tunnel failed, response 403` e como publicar direto pelo site do GitHub sem usar Linux local.
 
-```bash
-git remote -v
-```
-
-### Opção 1 (recomendada): corrigir URL do origin existente
-
-```bash
-git remote set-url origin https://github.com/jozivam/RepoDelivery.git
-git push -u origin work
-```
-
-### Opção 2: remover e adicionar de novo
-
-```bash
-git remote remove origin
-git remote add origin https://github.com/jozivam/RepoDelivery.git
-git push -u origin work
-```
-
-### Opção 3: usar script pronto
-
-```bash
-./scripts/publicar_github.sh jozivam work
-```
-
-## Erros comuns no push
-
-- `Repository not found`: URL errada ou repo não criado na conta.
-- `Authentication failed`: precisa autenticar com token/credential manager.
-- `src refspec work does not match any`: sua branch local tem outro nome (use `git branch`).
-
-## Rodar localmente no Linux
+## Rodar API
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload
-```
-
-## Testes
-
-```bash
-pytest -q
 ```

@@ -1,0 +1,2 @@
+-- Seed opcional de desenvolvimento.
+-- Não adicione dados obrigatórios para o sistema funcionar em produção.
